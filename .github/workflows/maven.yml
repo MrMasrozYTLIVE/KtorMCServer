@@ -36,7 +36,7 @@ jobs:
       
     - run: mkdir staging && cp target/*-with-dependencies.jar ${{ env.ARTIFACT_PATH }}/${{ env.ARTIFACT_NAME }}
     - name: Upload Artifact
-      id: upload
+      id: upload-artifacts
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.ARTIFACT_NAME }}
