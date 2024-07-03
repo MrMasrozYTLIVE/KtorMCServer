@@ -35,10 +35,10 @@ jobs:
         name: Package
         path: staging
 
-    - name: Changelog Creator
     # You may pin to the exact commit or the version.
     # uses: okcredit/changelog-creator-action@5433a77c77698724c119140fc98ddb831ed1d678
     - uses: okcredit/changelog-creator-action@v1.0.0
+    - name: Changelog Creator
     
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     #- name: Update dependency graph
