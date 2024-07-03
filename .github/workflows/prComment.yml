@@ -5,7 +5,7 @@ on:
     types:
       - completed
     workflows:
-      - 'Create PR Artifacts'
+      - 'Build the project'
 
 jobs:
   comment:
