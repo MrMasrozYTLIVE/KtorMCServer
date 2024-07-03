@@ -76,7 +76,7 @@ jobs:
             |-----------|-------------------------------------------------------------------------------------|
             | Commit    | ${{ github.event.pull_request.head.sha }}                                           |
             | Logs      | ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} |
-            | Jar Files | ${{ steps.upload-artifacts.outputs.artifact-url }}                                  |
+            | Jar Files | ${{ needs.build.outputs.artifact_url }}                                             |
             
             [badge]: https://img.shields.io/badge/Build-Success!-3fb950?logo=github&style=for-the-badge
             
