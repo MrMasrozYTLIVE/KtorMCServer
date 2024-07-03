@@ -19,9 +19,8 @@ class PlayerManager(private val socket: Socket) {
 
     lateinit var player: Player;
 
-    var debug = true
     suspend fun handleConnection() {
-        while(!socket.isClosed && debug) {
+        while(!socket.isClosed) {
             readPacket()
         }
     }
@@ -30,7 +29,6 @@ class PlayerManager(private val socket: Socket) {
         val packetID = reader.readByte().toInt()
         val packet = PacketManager.getPacket(packetID) ?: return Unit.run {if(logger.isDebugEnabled) logger.warn("Received unknown packet $packetID from ${player.username}")}
         packet.readData(this, reader)
-        if(packetID == 0x01) debug = false
     }
 
     suspend fun sendPacket(packet: Packet) {
