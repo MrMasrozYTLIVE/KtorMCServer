@@ -22,7 +22,7 @@ jobs:
     env:
       ARTIFACT_NAME: ktormcserver.jar
       ARTIFACT_PATH: ./staging
-
+    
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -42,12 +42,18 @@ jobs:
         name: ${{ env.ARTIFACT_NAME }}
         path: ${{ env.ARTIFACT_PATH }}/${{ env.ARTIFACT_NAME }}
         if-no-files-found: error
-
+    - name: Find Comment
+      uses: peter-evans/find-comment@v3
+      id: find-comment
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-author: 'github-actions[bot]'
+        
     ## Comment
     - name: Update Comment
       uses: peter-evans/create-or-update-comment@v3
       with:
-        issue-number: ${{ needs.buildJars.outputs.comment_id }}
+        issue-number: ${{ steps.find-comment.outputs.comment-id }}
         body: |-
           ## Build Preview
           
