@@ -12,7 +12,7 @@ import net.mitask.packet.impl.player.PacketDisconnectKick
 import net.mitask.util.ChatColor
 import org.slf4j.LoggerFactory
 
-class PlayerManager(privte val socket: Socket) {
+class PlayerManager(private val socket: Socket) {
     private val logger = LoggerFactory.getLogger(this.javaClass.simpleName)
     private val reader = socket.openReadChannel()
     private val writer = socket.openWriteChannel(autoFlush = true)
