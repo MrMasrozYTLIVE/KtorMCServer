@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Build the project
 
 on:
   push:
@@ -39,7 +39,7 @@ jobs:
     - run: mkdir staging && cp target/*-with-dependencies.jar ${{ env.ARTIFACT_PATH }}/${{ env.ARTIFACT_NAME }}
     - name: Upload Artifact
       id: upload
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.ARTIFACT_NAME }}
         path: ${{ env.ARTIFACT_PATH }}/${{ env.ARTIFACT_NAME }}
