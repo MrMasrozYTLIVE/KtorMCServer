@@ -13,11 +13,18 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    types:
+      - opened
+      - reopened
+      - synchronize
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+    env:
+      ARTIFACT_NAME: ktormcserver.jar
+      ARTIFACT_PATH: ./staging
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -29,11 +36,14 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml -U
       
-    - run: mkdir staging && cp target/*-with-dependencies.jar staging
-    - uses: actions/upload-artifact@v4
+    - run: mkdir staging && cp target/*-with-dependencies.jar ${{ env.ARTIFACT_PATH }}/${{ env.ARTIFACT_NAME }}
+    - name: Upload Artifact
+      id: upload
+      uses: actions/upload-artifact@v3.1.2
       with:
-        name: Package
-        path: staging
+        name: ${{ env.ARTIFACT_NAME }}
+        path: ${{ env.ARTIFACT_PATH }}/${{ env.ARTIFACT_NAME }}
+        if-no-files-found: error
     
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     #- name: Update dependency graph
